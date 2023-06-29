@@ -2,18 +2,24 @@ export class Token{
     id: number;
     name: string;
     value: number;
-    availableQuantity: number;
+    quantity: number;
   
-    constructor(id: number, name: string,value: number, availableQuantity: number) {
+    constructor(id: number, name: string,value: number, quantity: number) {
       this.id = id;
       this.name = name;
       this.value = value;
-      this.availableQuantity = availableQuantity;
+      this.quantity = quantity;
     }
 
-    increaseValueOnPurchase(availableQuantity:number, value:number) {
-        const currentQuantity = this.availableQuantity;
-        const increaseAmount = this.value * 0.004 * currentQuantity;
-        this.value += increaseAmount;
+    public static InitialRandomValue(): number{
+      const randomValue = Math.floor(Math.random() * 200000) + 1;
+      return randomValue
     }
+
+    public static InitialRandomQuantity(): number{
+      const randomQuantity = Math.floor(Math.random() * 500) + 1;
+      return randomQuantity
+    }
+
+    
 }

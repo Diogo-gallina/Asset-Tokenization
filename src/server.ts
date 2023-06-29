@@ -16,7 +16,7 @@ app.register(tokensRoutes, {
 });
 
 app.register(transactionsRoutes, {
-    prefix: 'clients'
+    prefix: 'tokens_purchase'
 });
 
 
