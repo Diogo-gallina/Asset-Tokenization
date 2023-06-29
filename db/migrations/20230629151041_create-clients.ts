@@ -7,6 +7,7 @@ export async function up(knex: Knex): Promise<void> {
         table.text('name').notNullable();
         table.text('cpf').notNullable();
         table.decimal('balance').notNullable();
+        table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable()
     })
 }
 
