@@ -4,7 +4,8 @@ declare module 'knex/types/tables' {
     export interface Tables {
         tokens: {
             id: string,
-            value: string,
+            name: string,
+            value: number,
             quantity: number,
             created_at: string,
         }
