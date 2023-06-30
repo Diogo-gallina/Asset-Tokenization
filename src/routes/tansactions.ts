@@ -1,4 +1,4 @@
-import { FastifyInstance } from "fastify";
+          import { FastifyInstance } from "fastify";
 import { knex } from "../database";
 import { z } from "zod";
 import { checkClientId, checkTokenId, updateBalance, updateToken, insertTransaction } from "../utils/TokenValidate";
@@ -54,16 +54,20 @@ export async function transactionsRoutes(app: FastifyInstance) {
             .where('id', token_id)
             .first()
 
+          totalPurchaseValue += valueToken;
+
           let valueTokenIncrement = tokenDataUpdate?.value;
 
           const newTokenId = randomUUID();
 
 
-          if ( valueToken> balance) {
+          if ( valueToken > balance) {
             console.log('insufficient funds.');
             return reply.status(400).send('Insufficient funds.');
           } else {
             console.log('sufficient funds!');
+
+            
 
             const updatedBalance = balance - totalPurchaseValue;
             quantityToken -= 1;
