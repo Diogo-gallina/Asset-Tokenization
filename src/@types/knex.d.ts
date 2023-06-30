@@ -21,9 +21,9 @@ declare module 'knex/types/tables' {
         tokens_purchase: {
             id: string,
             client_id: string,
-            token_id: string,
             quantity: number,
             created_at: string,
+            value: number,
         }
     }
 }
