@@ -2,7 +2,6 @@ import { FastifyInstance } from "fastify";
 import { knex } from "../database";
 import { z } from "zod";
 import { randomUUID } from "crypto";
-import { Client } from "../models/Client";
 
 export async function clientsRoutes(app: FastifyInstance){
 
@@ -25,8 +24,6 @@ export async function clientsRoutes(app: FastifyInstance){
         
         return { token }
     });
-
-//
 
     app.post('/', async (request, reply) => {
 
@@ -54,13 +51,6 @@ export async function clientsRoutes(app: FastifyInstance){
         return reply.status(201).send();
     });
 
-
-
-    app.patch('/', async (request, reply) => {
-
-    });
-
-//
 
     app.delete('/:id', async (request, reply) => {
         const getClientsParamsSchema = z.object({

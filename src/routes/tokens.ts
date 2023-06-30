@@ -23,8 +23,6 @@ export async function tokensRoutes(app: FastifyInstance) {
     return { token };
   });
 
-  //
-
   app.post("/", async (request, reply) => {
     const createToken = z.object({
       name: z.string(),
@@ -58,8 +56,6 @@ export async function tokensRoutes(app: FastifyInstance) {
 
     return reply.status(201).send();
   });
-
-  //
 
   app.delete("/:id", async (request, reply) => {
     const getTokensParamsSchema = z.object({

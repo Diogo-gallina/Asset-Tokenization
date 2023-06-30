@@ -4,21 +4,19 @@ import { clientsRoutes } from "./routes/clients";
 import { transactionsRoutes } from "./routes/tansactions";
 import { tokensRoutes } from "./routes/tokens";
 
-
 const app = fastify();
 
 app.register(clientsRoutes, {
-    prefix: 'clients'
+  prefix: "/clients",
 });
 
 app.register(tokensRoutes, {
-    prefix: 'tokens'
+  prefix: "/tokens",
 });
 
 app.register(transactionsRoutes, {
-    prefix: 'tokens_purchase'
+  prefix: "/transactions",
 });
-
 
 app.listen({
     port: env.PORT
