@@ -20,7 +20,7 @@ export async function transactionsRoutes(app: FastifyInstance) {
       value: z.number().default(0)
     });
 
-    const { client_id, token_id, quantity, value } = createToken.parse(request.body);
+    const { client_id, token_id, quantity } = createToken.parse(request.body);
 
     await checkClientId(client_id);
     await checkTokenId(token_id);
@@ -30,10 +30,10 @@ export async function transactionsRoutes(app: FastifyInstance) {
       .where('id', client_id)
       .first()
 
-      const tokenData = await knex('tokens')
-      .select('value', 'quantity')
-      .where('id', token_id)
-      .first()
+    const tokenData = await knex('tokens')
+    .select('value', 'quantity')
+    .where('id', token_id)
+    .first()
 
     let balance = balanceClient?.balance;
     let valueToken = tokenData?.value;
@@ -67,8 +67,6 @@ export async function transactionsRoutes(app: FastifyInstance) {
           } else {
             console.log('sufficient funds!');
 
-            
-
             const updatedBalance = balance - totalPurchaseValue;
             quantityToken -= 1;
             let updateValueToken: number = valueTokenIncrement !== undefined ? valueTokenIncrement * 1.004 : 0;
@@ -76,11 +74,8 @@ export async function transactionsRoutes(app: FastifyInstance) {
             await knex('tokens')
               .where('id', token_id)
               .update({
-                
                 'quantity': quantityToken
               })
-
-            console.log(updatedBalance);
 
             await updateBalance(client_id, parseFloat(updatedBalance.toFixed(2)));
             await updateToken(token_id, quantityToken, parseFloat(updateValueToken.toFixed(2)));
