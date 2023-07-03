@@ -1,29 +1,49 @@
 # Asset-Tokenization
-🪙Asset token market simulation system
+🪙 Asset token market simulation system
 
 
-RF
+## Functional Requirements
 
-- [ ] Deve ser possivel cadastrar um token
+- It must be possible to register a token.
+- It must be possible to list all tokens.
+- It must be possible to search for a token by ID.
+- It must be possible to delete a token by ID if necessary.
+- It must be possible to add new tokens.
+- It must be possible to register a client.
+- It must be possible to list all clients.
+- It must be possible to search for a client by ID.
+- It must be possible to delete a client by ID if necessary.
+- A client should be able to purchase a token.
+- It must be possible to view the transactions with the purchased tokens, the quantity that was purchased, and the value of each transaction.
 
-- [ ] Deve ser possivel listar todos tokens
 
-- [ ] Deve ser possivel buscar um token pelo id
+## Business Rules
 
-- [ ] Deve ser possivel excluir um token pelo id caso necessário
+- For each transaction made, a percentage of 0.4% should be added to the purchase of the next token.
+- Every token should be initialized with random initial values and quantities, with values ranging from 0 to 200,000 and quantities ranging from 0 to 500.
 
-- [ ] Deve ser possivel adicionar Tokens com valores e quantidades iniciais aleatórias
 
-- [ ] Os tokens após serem comprados devem acionar a lei de oferta e demanda aumentando seu valor
+## Development
 
-- [X] Deve ser possivel cadastrar um cliente
+To run the code in development mode, you need to have the following technologies installed:
 
-- [X] Deve ser possivel listar todos clientes
+- Node.js
+- TypeScript
+- Fastify
+- Knex
+- Sqlite
+- Zod
 
-- [X] Deve ser possivel buscar um cliente pelo id
+### Follow these steps:
 
-- [x] Deve ser possivel excluir um cliente pelo id caso necessário
+- Clone the repository.
+- Install the dependencies using npm install.
+- Run the TypeScript compiler in watch mode using npm run dev.
+- And the server will already be running
+- Use some tool to make requests and visualize them like postman and insomnia
 
-- [ ] Cliente deve poder comprar um token
 
-- [ ] Cliente deve poder ver os tokens comprados, e a quantidade que foi comprada
+## 🤝 Contributors
+We want to thank the following people who contributed to this project:
+
+Diogo-gallina: https://github.com/Diogo-gallina
