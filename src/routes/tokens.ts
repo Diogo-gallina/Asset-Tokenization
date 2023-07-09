@@ -1,8 +1,9 @@
 import { FastifyInstance } from "fastify";
-import { knex } from "../database";
 import { z } from "zod";
-import { randomUUID } from "crypto";
+import { randomUUID } from "node:crypto";
+
 import { Token } from "../models/Token";
+import { knex } from "../database";
 
 export async function tokensRoutes(app: FastifyInstance) {
   app.get("/", async () => {
@@ -24,11 +25,11 @@ export async function tokensRoutes(app: FastifyInstance) {
   });
 
   app.post("/", async (request, reply) => {
-    const createToken = z.object({
+    const getTokensParamsSchema = z.object({
       name: z.string(),
     });
 
-    const { name } = createToken.parse(request.body);
+    const { name } = getTokensParamsSchema.parse(request.body);
 
     await knex("tokens").insert({
       id: randomUUID(),
@@ -36,23 +37,6 @@ export async function tokensRoutes(app: FastifyInstance) {
       value: Token.InitialRandomValue(),
       quantity: Token.InitialRandomQuantity(),
     });
-
-    return reply.status(201).send();
-  });
-
-  app.patch("/:id", async (request, reply) => {
-    const updateTokenSchema = z.object({
-      id: z.string().uuid(),
-      value: z.number(),
-      quantity: z.number(),
-    });
-
-    const { id } = updateTokenSchema.parse(request.params);
-    const { value, quantity } = updateTokenSchema.parse(request.body);
-
-    const validatedData = updateTokenSchema.parse(request.body);
-
-    await knex("tokens").where("id", id).update(validatedData);
 
     return reply.status(201).send();
   });
@@ -66,6 +50,6 @@ export async function tokensRoutes(app: FastifyInstance) {
 
     await knex("tokens").where("id", id).delete();
 
-    return reply.status(201).send();
+    return reply.status(204).send();
   });
 }

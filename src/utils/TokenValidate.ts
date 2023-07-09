@@ -1,5 +1,6 @@
 import { knex } from "../database";
 import { randomUUID } from "crypto";
+import { ValueNotExist } from "./errors/value-not-exist";
 
 export async function checkClientId(clientId: string) {
   try {
@@ -7,11 +8,10 @@ export async function checkClientId(clientId: string) {
       .where('id', clientId)
       .first();
 
-    if (validateClientId) {
-      console.log('The value exists in the table.');
-    } else {
-      console.log('The value does not exist in the table.');
+    if (!validateClientId) {
+      throw new ValueNotExist();
     }
+
   } catch (error) {
     console.error('Error checking value:', error);
   }
@@ -23,11 +23,10 @@ export async function checkTokenId(tokenId: string) {
       .where('id', tokenId)
       .first();
 
-    if (validateTokenId) {
-      console.log('The value exists in the table.');
-    } else {
-      console.log('The value does not exist in the table.');
+    if (!validateTokenId) {
+      throw new ValueNotExist();
     }
+    
   } catch (error) {
     console.error('Error checking value:', error);
   }

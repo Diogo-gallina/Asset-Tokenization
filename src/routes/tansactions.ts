@@ -1,8 +1,15 @@
-          import { FastifyInstance } from "fastify";
-import { knex } from "../database";
+import { FastifyInstance } from "fastify";
+import { randomUUID } from "node:crypto";
 import { z } from "zod";
-import { checkClientId, checkTokenId, updateBalance, updateToken, insertTransaction } from "../utils/TokenValidate";
-import { randomUUID } from "crypto";
+
+import { knex } from "../database";
+import { 
+  checkClientId, 
+  checkTokenId, 
+  updateBalance, 
+  updateToken, 
+  insertTransaction 
+} from "../utils/TokenValidate";
 
 export async function transactionsRoutes(app: FastifyInstance) {
 
@@ -13,14 +20,14 @@ export async function transactionsRoutes(app: FastifyInstance) {
   })
 
   app.post("/", async (request, reply) => {
-    const createToken = z.object({
+    const getTokensParamsSchema = z.object({
       client_id: z.string().uuid(),
       token_id: z.string().uuid(),
       quantity: z.number(),
       value: z.number().default(0)
     });
 
-    const { client_id, token_id, quantity } = createToken.parse(request.body);
+    const { client_id, token_id, quantity } = getTokensParamsSchema.parse(request.body);
 
     await checkClientId(client_id);
     await checkTokenId(token_id);

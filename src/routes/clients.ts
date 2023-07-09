@@ -1,7 +1,8 @@
 import { FastifyInstance } from "fastify";
-import { knex } from "../database";
 import { z } from "zod";
-import { randomUUID } from "crypto";
+
+import { randomUUID } from "node:crypto";
+import { knex } from "../database";
 
 export async function clientsRoutes(app: FastifyInstance){
 
@@ -18,11 +19,11 @@ export async function clientsRoutes(app: FastifyInstance){
 
         const { id } = getClientsParamsSchema.parse(request.params);
 
-        const token = await knex('clients')
+        const client = await knex('clients')
             .where('id', id)
             .first()
         
-        return { token }
+        return { client }
     });
 
     app.post('/', async (request, reply) => {
@@ -38,8 +39,6 @@ export async function clientsRoutes(app: FastifyInstance){
             cpf,
             balance,
         } = createToken.parse(request.body);
-
-        
 
         await knex('clients').insert({
             id: randomUUID(),
@@ -63,6 +62,6 @@ export async function clientsRoutes(app: FastifyInstance){
             .where('id', id)
             .delete()
 
-        return reply.status(201).send();
+        return reply.status(204).send();
     })
 }

@@ -1,4 +1,5 @@
 import fastify from "fastify";
+
 import { env } from "./env";
 import { clientsRoutes } from "./routes/clients";
 import { transactionsRoutes } from "./routes/tansactions";
